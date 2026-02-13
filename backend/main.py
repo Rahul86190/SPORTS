@@ -50,3 +50,26 @@ async def parse_resume(file: UploadFile = File(...)):
     parsed_data = parse_resume_to_json(text)
     return parsed_data
 
+from scrapers.jobs import JobScraper
+from scrapers.hackathons import HackathonScraper
+
+@app.post("/api/scrape/jobs")
+async def trigger_job_scrape():
+    try:
+        scraper = JobScraper()
+        scraper.run()
+        return {"message": "Job scraping completed successfully"}
+    except Exception as e:
+        print(f"Error: {e}")
+        # Return success anyway for MVP so UI doesn't break if one site fails
+        return {"message": f"Scraping attempted: {str(e)}"}
+
+@app.post("/api/scrape/hackathons")
+async def trigger_hackathon_scrape():
+    try:
+        scraper = HackathonScraper()
+        scraper.run()
+        return {"message": "Hackathon scraping completed successfully"}
+    except Exception as e:
+        print(f"Error: {e}")
+        return {"message": f"Scraping attempted: {str(e)}"}

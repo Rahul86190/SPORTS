@@ -43,7 +43,8 @@ export default function Home() {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="text-xl text-neutral-600 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            SPORTS.ai is the intelligent layer between your skills and your dream job.
+            SPORTS (Student Portal for Opportunities, Resources, Tutoring & Success) <br />
+            is the intelligent layer between your skills and your dream job.
             Track progress, validate expertise, and get hired.
           </motion.p>
 

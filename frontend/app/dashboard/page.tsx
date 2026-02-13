@@ -135,11 +135,14 @@ export default function Dashboard() {
                     {/* Sidebar / Stats (Placeholder for future phases) */}
                     <div className="w-full md:w-80 space-y-6">
                         <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-                            <h3 className="font-semibold text-neutral-900 mb-4">Profile Strength</h3>
-                            <div className="w-full bg-neutral-100 h-2 rounded-full mb-2">
-                                <div className="bg-green-500 h-2 rounded-full w-3/4"></div>
-                            </div>
-                            <p className="text-sm text-neutral-500">Intermediate • 75% Complete</p>
+                            <h3 className="font-semibold text-neutral-900 mb-2">Opportunities</h3>
+                            <p className="text-sm text-neutral-500 mb-4">Find jobs and hackathons tailored to your skills.</p>
+                            <button
+                                onClick={() => router.push('/opportunities')}
+                                className="w-full py-2 bg-neutral-900 text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
+                            >
+                                Explore Now
+                            </button>
                         </div>
 
                         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100">
