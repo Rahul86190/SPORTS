@@ -12,6 +12,7 @@ export interface ProfileData {
     github: string;
     linkedin: string;
     location: string;
+    id?: string; // Added for API calls
     avatarUrl?: string;
     skills: string[];
     education: Array<{

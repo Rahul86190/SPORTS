@@ -14,7 +14,8 @@ def parse_resume_to_json(text: str) -> dict:
     print(f"DEBUG: Using API Key: {os.environ.get('GEMINI_API_KEY')[:5]}... (Length: {len(os.environ.get('GEMINI_API_KEY'))})")
     
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # Confirmed available: models/gemini-2.0-flash-001
+        model = genai.GenerativeModel('gemini-2.0-flash-001')
         
         prompt = f"""
         You are an expert Resume Parser. 

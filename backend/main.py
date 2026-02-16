@@ -20,6 +20,12 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+try:
+    from .routers import roadmap
+except ImportError:
+    from routers import roadmap
+app.include_router(roadmap.router, prefix="/api/roadmap", tags=["Roadmap"])
+
 from fastapi import UploadFile, File, HTTPException
 from gemini_parser import parse_resume_to_json
 import io

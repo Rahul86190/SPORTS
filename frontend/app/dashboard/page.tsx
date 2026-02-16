@@ -3,9 +3,15 @@
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Loader2, Edit3 } from "lucide-react";
+import { Loader2, LogOut, LayoutDashboard, User, Briefcase, Map, Menu, X } from "lucide-react";
 import { createClient } from "@/lib/supabase";
-import { ProfilePreview, ProfileData } from "@/components/ProfilePreview";
+import { ProfileData } from "@/components/ProfilePreview";
+
+// Tab Components
+import { ProfileTab } from "@/components/dashboard/tabs/ProfileTab";
+import { OverviewTab } from "@/components/dashboard/tabs/OverviewTab";
+import { OpportunitiesTab } from "@/components/dashboard/tabs/OpportunitiesTab";
+import { FuturePathTab } from "@/components/dashboard/tabs/FuturePathTab";
 
 export default function Dashboard() {
     const { user, loading: authLoading, signOut } = useAuth();
@@ -14,6 +20,8 @@ export default function Dashboard() {
 
     const [profile, setProfile] = useState<ProfileData | null>(null);
     const [fetching, setFetching] = useState(true);
+    const [activeTab, setActiveTab] = useState<'profile' | 'overview' | 'opportunities' | 'future-path'>('profile');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -33,20 +41,21 @@ export default function Dashboard() {
                 if (error) {
                     console.error("Error fetching profile:", error);
                 } else if (data) {
-                    // Normalize standard columns to ProfileData structure
-                    // If resume_data exists, use it as the source of truth for structured data
-                    const profileData: ProfileData = data.resume_data || {
+                    const profileData: ProfileData = {
+                        id: user.id,
+                        ...data.resume_data,
                         fullName: data.full_name || "",
-                        headline: "",
+                        headline: data.resume_data?.headline || "",
                         email: user.email || "",
                         website: "",
                         github: "",
                         linkedin: "",
                         location: "",
                         skills: data.skills || [],
-                        education: [],
-                        experience: [],
-                        projects: []
+                        education: data.resume_data?.education || [],
+                        experience: data.resume_data?.experience || [],
+                        projects: data.resume_data?.projects || [],
+                        roadmap_data: data.roadmap_data
                     };
                     setProfile(profileData);
                 }
@@ -72,88 +81,102 @@ export default function Dashboard() {
 
     if (!user) return null;
 
+    const navItems = [
+        { id: 'profile', label: 'Profile', icon: User },
+        { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+        { id: 'opportunities', label: 'Opportunities', icon: Briefcase },
+        { id: 'future-path', label: 'Future Path', icon: Map },
+    ];
+
     return (
-        <div className="min-h-screen bg-neutral-50">
-            {/* Header */}
-            <header className="bg-white border-b border-neutral-200 sticky top-0 z-10">
-                <div className="max-w-5xl mx-auto px-6 h-16 flex justify-between items-center">
-                    <h1 className="text-xl font-bold text-neutral-900 tracking-tight">SPORTS Dashboard</h1>
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm text-neutral-500 hidden sm:inline-block">{user.email}</span>
-                        <button
-                            onClick={signOut}
-                            className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 transition-colors"
-                        >
-                            Sign Out
-                        </button>
-                    </div>
+        <div className="min-h-screen bg-neutral-50 flex">
+            {/* Sidebar (Desktop) */}
+            <aside className="hidden md:flex flex-col w-64 bg-white border-r border-neutral-200 fixed h-full z-20">
+                <div className="p-6 border-b border-neutral-100">
+                    <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">SPORTS</h1>
+                    <p className="text-xs text-neutral-500 mt-1">Student Portal</p>
                 </div>
+
+                <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+                    {navItems.map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => setActiveTab(item.id as any)}
+                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${activeTab === item.id
+                                ? 'bg-neutral-900 text-white shadow-md'
+                                : 'text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900'
+                                }`}
+                        >
+                            <item.icon className="w-5 h-5" />
+                            {item.label}
+                        </button>
+                    ))}
+                </nav>
+
+                <div className="p-4 border-t border-neutral-100">
+                    <button
+                        onClick={signOut}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                        <LogOut className="w-5 h-5" />
+                        Sign Out
+                    </button>
+                </div>
+            </aside>
+
+            {/* Mobile Header */}
+            <header className="md:hidden fixed top-0 w-full bg-white border-b border-neutral-200 z-30 px-4 h-16 flex items-center justify-between">
+                <h1 className="text-xl font-bold text-neutral-900">SPORTS</h1>
+                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2">
+                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </button>
             </header>
 
-            <main className="max-w-5xl mx-auto px-6 py-12">
-                <div className="flex flex-col md:flex-row gap-8 items-start">
-
-                    {/* Main Profile View */}
-                    <div className="flex-1 w-full">
-                        <div className="flex justify-between items-end mb-6">
-                            <div>
-                                <h2 className="text-2xl font-bold text-neutral-900">Your Profile</h2>
-                                <p className="text-neutral-500">This is how you appear to employers and peers.</p>
-                            </div>
-                            <button
-                                onClick={() => router.push('/onboarding?step=1')}
-                                className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
-                            >
-                                <Edit3 className="w-4 h-4" /> Edit Profile
-                            </button>
-                        </div>
-
-                        {/* Reuse the ProfilePreview component */}
-                        {profile ? (
-                            <div className="border border-neutral-200 rounded-2xl shadow-sm bg-white overflow-hidden">
-                                {/* Pass a wrapper div to handle internal scrolling of ProfilePreview if necessary, 
-                                    but ProfilePreview has its own scrollbar. We might want to remove sticky/scroll 
-                                    from ProfilePreview when used here, or just wrap it. 
-                                    For now, we render it directly. */}
-                                <div className="[&>div]:static [&>div]:max-h-full [&>div]:border-0 [&>div]:shadow-none">
-                                    <ProfilePreview data={profile} />
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="text-center py-12 bg-white rounded-2xl border border-neutral-200 border-dashed">
-                                <p className="text-neutral-400 mb-4">No profile data found.</p>
+            {/* Mobile Sidebar Overlay */}
+            {mobileMenuOpen && (
+                <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="absolute right-0 top-0 h-full w-64 bg-white p-6 shadow-xl" onClick={e => e.stopPropagation()}>
+                        <nav className="space-y-4 mt-12">
+                            {navItems.map((item) => (
                                 <button
-                                    onClick={() => router.push('/onboarding')}
-                                    className="px-6 py-2 bg-neutral-900 text-white rounded-lg font-medium"
+                                    key={item.id}
+                                    onClick={() => { setActiveTab(item.id as any); setMobileMenuOpen(false); }}
+                                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-lg font-medium ${activeTab === item.id ? 'bg-neutral-900 text-white' : 'text-neutral-600'
+                                        }`}
                                 >
-                                    Create Profile
+                                    <item.icon className="w-5 h-5" />
+                                    {item.label}
                                 </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Sidebar / Stats (Placeholder for future phases) */}
-                    <div className="w-full md:w-80 space-y-6">
-                        <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-                            <h3 className="font-semibold text-neutral-900 mb-2">Opportunities</h3>
-                            <p className="text-sm text-neutral-500 mb-4">Find jobs and hackathons tailored to your skills.</p>
+                            ))}
                             <button
-                                onClick={() => router.push('/opportunities')}
-                                className="w-full py-2 bg-neutral-900 text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
+                                onClick={signOut}
+                                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-lg font-medium text-red-600 hover:bg-red-50"
                             >
-                                Explore Now
+                                <LogOut className="w-5 h-5" />
+                                Sign Out
                             </button>
-                        </div>
-
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100">
-                            <h3 className="font-semibold text-blue-900 mb-2">Coming Soon</h3>
-                            <p className="text-sm text-blue-700/80 mb-4">
-                                We are building AI-powered job matching and identifying hackathons for you.
-                            </p>
-                            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">Phase 2 Loading...</span>
-                        </div>
+                        </nav>
                     </div>
+                </div>
+            )}
 
+            {/* Main Content */}
+            <main className="flex-1 md:ml-64 p-6 md:p-12 pt-24 md:pt-12 min-h-screen">
+                <div className="max-w-5xl mx-auto">
+                    {profile && (
+                        <>
+                            {activeTab === 'profile' && <ProfileTab profile={profile} onNavigate={(tab) => setActiveTab(tab as any)} />}
+                            {activeTab === 'overview' && <OverviewTab profile={profile} onNavigate={(tab) => setActiveTab(tab as any)} />}
+                            {activeTab === 'opportunities' && <OpportunitiesTab profile={profile} onNavigate={(tab) => setActiveTab(tab as any)} />}
+                            {activeTab === 'future-path' && (
+                                <FuturePathTab
+                                    profile={profile}
+                                    onNavigate={(tab) => setActiveTab(tab as any)}
+                                    onProfileUpdate={setProfile}
+                                />
+                            )}
+                        </>
+                    )}
                 </div>
             </main>
         </div>

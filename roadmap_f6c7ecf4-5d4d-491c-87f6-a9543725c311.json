@@ -1,0 +1,278 @@
+{
+  "title": "AI-Enhanced Full Stack Developer Roadmap",
+  "phases": [
+    {
+      "id": "phase_1",
+      "nodes": [
+        {
+          "id": "node_1",
+          "title": "HTML5 & Semantic Web",
+          "resources": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML",
+              "title": "MDN HTML Basics"
+            },
+            {
+              "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+              "title": "FreeCodeCamp Responsive Web Design"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "1h",
+              "title": "Semantic HTML Tags"
+            },
+            {
+              "time": "2h",
+              "title": "Forms and Validations"
+            },
+            {
+              "time": "1h",
+              "title": "Accessibility (a11y) Basics"
+            }
+          ],
+          "description": "The skeleton of the web. Understanding accessibility and SEO-friendly structures.",
+          "estimated_time": "4 Hours",
+          "specific_focus": "Focus on semantic tags (article, section, nav) and ARIA labels. Skip: Legacy table layouts and archaic frame tags."
+        },
+        {
+          "id": "node_2",
+          "title": "Modern CSS & Tailwind CSS",
+          "resources": [
+            {
+              "url": "https://tailwindcss.com/docs",
+              "title": "Tailwind CSS Official Docs"
+            },
+            {
+              "url": "https://flexboxfroggy.com/",
+              "title": "Flexbox Froggy (Interactive)"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "4h",
+              "title": "Flexbox & Grid"
+            },
+            {
+              "time": "6h",
+              "title": "Tailwind Fundamentals"
+            },
+            {
+              "time": "2h",
+              "title": "Responsive Design"
+            }
+          ],
+          "description": "Moving away from vanilla CSS to utility-first styling for rapid prototyping.",
+          "estimated_time": "12 Hours",
+          "specific_focus": "Focus on Flexbox and Grid for layout. Learn Tailwind CSS classes. Skip: CSS floats, Bootstrap, and heavy animation libraries like Framer Motion for now."
+        }
+      ],
+      "title": "Phase 1: Modern Frontend Foundations",
+      "description": "Mastering the structure and styling of the web with a focus on modern layouts and responsive design.",
+      "estimated_time": "3 Weeks"
+    },
+    {
+      "id": "phase_2",
+      "nodes": [
+        {
+          "id": "node_3",
+          "title": "Modern JavaScript (ES6+)",
+          "resources": [
+            {
+              "url": "https://javascript.info/",
+              "title": "JavaScript.info"
+            },
+            {
+              "url": "https://eloquentjavascript.net/",
+              "title": "Eloquent JavaScript (Online Book)"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "5h",
+              "title": "Async/Await & Promises"
+            },
+            {
+              "time": "3h",
+              "title": "Destructuring & Spread"
+            },
+            {
+              "time": "7h",
+              "title": "DOM Manipulation"
+            }
+          ],
+          "description": "Core JS concepts required for modern frameworks like React.",
+          "estimated_time": "15 Hours",
+          "specific_focus": "Focus on Arrow Functions, Map/Filter/Reduce, and Fetch API. Skip: var (use let/const), JQuery, and Prototypes (Classes are enough for now)."
+        },
+        {
+          "id": "node_4",
+          "title": "React.js Ecosystem",
+          "resources": [
+            {
+              "url": "https://react.dev/",
+              "title": "React.dev (New Docs)"
+            },
+            {
+              "url": "https://scrimba.com/learn/learnreact",
+              "title": "Scrimba React Course"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "10h",
+              "title": "Functional Components & Hooks"
+            },
+            {
+              "time": "8h",
+              "title": "State Management (Zustand/Context)"
+            },
+            {
+              "time": "7h",
+              "title": "React Router"
+            }
+          ],
+          "description": "The industry standard for building dynamic user interfaces.",
+          "estimated_time": "25 Hours",
+          "specific_focus": "Focus on useEffect, useState, and custom hooks. Skip: Class Components and Redux (it's overkill for most modern projects)."
+        }
+      ],
+      "title": "Phase 2: JavaScript Mastery for Python Developers",
+      "description": "Bridging the gap between Python logic and JavaScript's event-driven nature.",
+      "estimated_time": "4 Weeks"
+    },
+    {
+      "id": "phase_3",
+      "nodes": [
+        {
+          "id": "node_5",
+          "title": "FastAPI & Pydantic",
+          "resources": [
+            {
+              "url": "https://fastapi.tiangolo.com/tutorial/",
+              "title": "FastAPI Official Tutorial"
+            },
+            {
+              "url": "https://github.com/tiangolo/full-stack-fastapi-template",
+              "title": "Tiangolo's Full Stack FastAPI Template"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "4h",
+              "title": "RESTful API Design"
+            },
+            {
+              "time": "4h",
+              "title": "Pydantic Schemas"
+            },
+            {
+              "time": "4h",
+              "title": "Dependency Injection"
+            }
+          ],
+          "description": "Modern, fast (high-performance), web framework for building APIs with Python.",
+          "estimated_time": "12 Hours",
+          "specific_focus": "Focus on Type Hinting and Automatic Documentation (Swagger). Skip: Flask (too thin) and Django (too monolithic for now)."
+        },
+        {
+          "id": "node_6",
+          "title": "SQL Databases & ORMs",
+          "resources": [
+            {
+              "url": "https://docs.sqlalchemy.org/",
+              "title": "SQLAlchemy Documentation"
+            },
+            {
+              "url": "https://www.postgresqltutorial.com/",
+              "title": "PostgreSQL Tutorial"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "5h",
+              "title": "PostgreSQL Fundamentals"
+            },
+            {
+              "time": "7h",
+              "title": "SQLAlchemy / SQLModel"
+            },
+            {
+              "time": "3h",
+              "title": "Migrations with Alembic"
+            }
+          ],
+          "description": "Data persistence using PostgreSQL and SQLAlchemy.",
+          "estimated_time": "15 Hours",
+          "specific_focus": "Focus on Relationships (One-to-Many), Joins, and Indexing. Skip: NoSQL (MongoDB) unless you have a specific use case; SQL is more standard."
+        }
+      ],
+      "title": "Phase 3: Pythonic Backend & Databases",
+      "description": "Leveraging your Python skills to build high-performance APIs.",
+      "estimated_time": "3 Weeks"
+    },
+    {
+      "id": "phase_4",
+      "nodes": [
+        {
+          "id": "node_7",
+          "title": "LangChain & AI Agents in Web Apps",
+          "resources": [
+            {
+              "url": "https://python.langchain.com/",
+              "title": "LangChain JS/Python Docs"
+            },
+            {
+              "url": "https://sdk.vercel.ai/docs",
+              "title": "Vercel AI SDK"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "4h",
+              "title": "Streaming LLM Responses"
+            },
+            {
+              "time": "6h",
+              "title": "Vector Databases (Pinecone/Chroma)"
+            }
+          ],
+          "description": "Building full-stack AI features like RAG or Agentic workflows.",
+          "estimated_time": "10 Hours",
+          "specific_focus": "Focus on Server-Sent Events (SSE) for streaming AI chat. Skip: Building models from scratch (use APIs)."
+        },
+        {
+          "id": "node_8",
+          "title": "Docker & Cloud Deployment",
+          "resources": [
+            {
+              "url": "https://github.com/docker/labs",
+              "title": "Docker Labs"
+            },
+            {
+              "url": "https://render.com/docs/deploy-fastapi",
+              "title": "Render Deployment Guide"
+            }
+          ],
+          "subtopics": [
+            {
+              "time": "4h",
+              "title": "Dockerizing FastAPI & React"
+            },
+            {
+              "time": "4h",
+              "title": "Deployment on Vercel/Render"
+            }
+          ],
+          "description": "Packaging and shipping your application.",
+          "estimated_time": "8 Hours",
+          "specific_focus": "Focus on Multi-stage Docker builds. Skip: Kubernetes (too complex for individual developers)."
+        }
+      ],
+      "title": "Phase 4: AI Integration & Deployment",
+      "description": "The 'Full Stack AI' niche. Connecting your LLM expertise to your web apps.",
+      "estimated_time": "2 Weeks"
+    }
+  ],
+  "description": "A tailored path for a professional with Python/ML background to master modern full-stack development, leveraging existing logic and AI expertise."
+}
