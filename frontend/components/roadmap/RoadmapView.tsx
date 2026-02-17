@@ -14,11 +14,13 @@ import {
     MarkerType,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { cn } from '@/lib/utils';
 import { LearningNode } from './LearningNode';
 import { SubtopicNode } from './SubtopicNode';
 import { NoteNode } from './NoteNode';
 import { NodeDetailsModal, NodeDetails } from './NodeDetailsModal';
-import { Loader2, ChevronRight, ChevronLeft, Map, StickyNote, Plus } from 'lucide-react';
+import { ChatInterface } from '../tutor/ChatInterface';
+import { Loader2, ChevronRight, ChevronLeft, Map, StickyNote, Plus, MessageCircle } from 'lucide-react';
 
 const nodeTypes = {
     learningNode: LearningNode,
@@ -41,6 +43,10 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
     // Modal State
     const [selectedNode, setSelectedNode] = useState<NodeDetails | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Chat State
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatContext, setChatContext] = useState<string>('');
 
 
 
@@ -130,7 +136,8 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                 ...newNote,
                 onContentChange: updateNoteContent,
                 onStyleChange: updateNoteStyle,
-                onDelete: deleteNote
+                onDelete: deleteNote,
+                onResize: onNodeResizeStop
             },
             draggable: true,
         };
@@ -428,7 +435,13 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                     type: 'noteNode',
                     position: { x: n.x, y: n.y },
                     style: { width: n.width || 200, height: n.height || 200 },
-                    data: { ...n, onContentChange: updateNoteContent, onStyleChange: updateNoteStyle, onDelete: deleteNote },
+                    data: {
+                        ...n,
+                        onContentChange: updateNoteContent,
+                        onStyleChange: updateNoteStyle,
+                        onDelete: deleteNote,
+                        onResize: onNodeResizeStop
+                    },
                     draggable: true
                 }));
             }
@@ -531,6 +544,27 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                             <span className="text-xs font-bold">Add Note</span>
                         </button>
                         <button
+                            onClick={() => {
+                                // Construct a summary of the current phase for context
+                                if (currentPhase) {
+                                    const phaseSummary = `Current Phase: ${currentPhase.title}. ` +
+                                        currentPhase.nodes.map((n: any, i: number) => {
+                                            const subs = n.subtopics ? ` (Subtopics: ${n.subtopics.map((s: any) => s.title).join(', ')})` : '';
+                                            return `${i + 1}. ${n.title}${subs}`;
+                                        }).join('. ');
+                                    setChatContext(phaseSummary);
+                                } else {
+                                    setChatContext("General Programming");
+                                }
+                                setIsChatOpen(prev => !prev);
+                            }}
+                            className={cn("p-2 rounded-full transition-colors flex items-center gap-1.5 px-3", isChatOpen ? "bg-blue-100 text-blue-700" : "bg-neutral-100 hover:bg-neutral-200 text-neutral-600")}
+                            title="AI Tutor"
+                        >
+                            <MessageCircle className="w-4 h-4" />
+                            <span className="text-xs font-bold">Tutor</span>
+                        </button>
+                        <button
                             onClick={generateRoadmap}
                             disabled={loading}
                             className="p-2 hover:bg-neutral-200 rounded-full text-neutral-500 hover:text-blue-600 transition-colors"
@@ -571,10 +605,6 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
                     onNodeDragStop={onNodeDragStop}
-                    onNodeResizeStop={onNodeResizeStop}
-                    onEdgesChange={onEdgesChange}
-                    onNodeDragStop={onNodeDragStop}
-                    onNodeResizeStop={onNodeResizeStop}
                     nodeTypes={nodeTypes}
                     edgeTypes={edgeTypes}
                     fitView
@@ -597,6 +627,19 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 node={selectedNode}
+                onAskTutor={(context) => {
+                    setChatContext(context);
+                    setIsChatOpen(true);
+                    // Optional: Close modal if you want cleaner UI, but keeping it open is also fine for reference.
+                    // setIsModalOpen(false); 
+                }}
+            />
+
+            {/* AI Tutor Chat */}
+            <ChatInterface
+                isOpen={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+                context={chatContext}
             />
         </div>
     );

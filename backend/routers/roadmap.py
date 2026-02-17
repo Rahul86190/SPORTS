@@ -100,7 +100,7 @@ async def update_progress(request: UpdateProgressRequest):
                 
                 if updated: break
             if updated: break
-
+    
     if not updated:
         raise HTTPException(status_code=404, detail="Node ID not found in roadmap")
 

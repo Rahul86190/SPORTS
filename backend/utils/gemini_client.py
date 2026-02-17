@@ -112,6 +112,56 @@ class GeminiClient:
                 if attempt == retries - 1:
                     return {"error": str(e)}
 
+    def chat_with_tutor(self, message: str, context: str) -> str:
+        if not self.model:
+            return "Error: AI not configured."
+        
+        system_prompt = f"""
+        You are a friendly and knowledgeable AI Tutor for the SPORTS platform.
+        Your goal is to help the student understand the following topic:
+        
+        CONTEXT: {context}
+        
+        Keep your answers concise, encouraging, and focused on the context. 
+        If the user asks something unrelated, gently guide them back or answer briefly.
+        Use Markdown for formatting code or lists.
+        """
+        
+        try:
+            # We use a simple generation here. For full chat history, we'd need a chat session object.
+            # For this MVP, we treat each message as a standalone query with context.
+            full_prompt = f"{system_prompt}\n\nStudent: {message}\nTutor:"
+            response = self.model.generate_content(full_prompt)
+            return response.text
+        except Exception as e:
+            print(f"Chat Error: {e}")
+            return "Sorry, I'm having trouble thinking right now. Please try again."
+
+    def chat_with_tutor_stream(self, message: str, context: str):
+        if not self.model:
+            yield "Error: AI not configured."
+            return
+        
+        system_prompt = f"""
+        You are "Player 0", a friendly and knowledgeable AI Tutor for the SPORTS platform.
+        Your goal is to help the student understand the following topic:
+        
+        CONTEXT: {context}
+        
+        Keep your answers concise, encouraging, and focused on the context. 
+        If the user asks something unrelated, gently guide them back or answer briefly.
+        Use Markdown for formatting code or lists.
+        """
+        
+        try:
+            full_prompt = f"{system_prompt}\n\nStudent: {message}\nTutor:"
+            response = self.model.generate_content(full_prompt, stream=True)
+            for chunk in response:
+                yield chunk.text
+        except Exception as e:
+            print(f"Chat Stream Error: {e}")
+            yield "Sorry, I'm having trouble thinking right now. Please try again."
+
     def _get_experience_level(self, profile: dict) -> str:
         # Simple heuristic
         if len(profile.get('experience', [])) > 0:

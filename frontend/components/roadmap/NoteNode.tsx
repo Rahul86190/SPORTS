@@ -28,7 +28,8 @@ export function NoteNode({ data, selected }: { data: any, selected: boolean }) {
     const [content, setContent] = useState(data.content || '');
     const [color, setColor] = useState(data.color || '#ffffff');
     const [fontSize, setFontSize] = useState(data.fontSize || 'text-sm');
-    const [shape, setShape] = useState(data.shape || 'rectangle');
+    // Use data.shape as source of truth if available, else default
+    const shape = data.shape || 'rectangle';
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     // Auto-resize textarea height
@@ -49,7 +50,7 @@ export function NoteNode({ data, selected }: { data: any, selected: boolean }) {
     const handleStyleChange = (updates: any) => {
         if (updates.color) setColor(updates.color);
         if (updates.fontSize) setFontSize(updates.fontSize);
-        if (updates.shape) setShape(updates.shape);
+        // Shape is now derived from props, so we rely on parent update via onStyleChange
 
         if (data.onStyleChange) {
             data.onStyleChange(data.id, {
@@ -95,6 +96,16 @@ export function NoteNode({ data, selected }: { data: any, selected: boolean }) {
                 minHeight={150}
                 lineStyle={{ border: '1px solid #3b82f6', opacity: 0.5 }}
                 handleStyle={{ width: 14, height: 14, borderRadius: 7, backgroundColor: '#3b82f6', border: '2px solid white' }}
+                onResizeEnd={(event, params) => {
+                    if (data.onResize) {
+                        // Create a mock node object with updated style to pass back
+                        data.onResize(event, {
+                            type: 'noteNode',
+                            id: data.id,
+                            style: { width: params.width, height: params.height }
+                        });
+                    }
+                }}
             />
 
             {/* Selection Ring (Visual Only) - applied to a wrapper or matched to shape? 

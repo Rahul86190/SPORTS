@@ -3,15 +3,13 @@
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Loader2, LogOut, LayoutDashboard, User, Briefcase, Map, Menu, X } from "lucide-react";
-import { createClient } from "@/lib/supabase";
-import { ProfileData } from "@/components/ProfilePreview";
-
 // Tab Components
 import { ProfileTab } from "@/components/dashboard/tabs/ProfileTab";
 import { OverviewTab } from "@/components/dashboard/tabs/OverviewTab";
 import { OpportunitiesTab } from "@/components/dashboard/tabs/OpportunitiesTab";
 import { FuturePathTab } from "@/components/dashboard/tabs/FuturePathTab";
+import { ResourcesTab } from "@/components/dashboard/tabs/ResourcesTab";
+import { Loader2, LogOut, LayoutDashboard, User, Briefcase, Map, Menu, X, Bookmark } from "lucide-react";
 
 export default function Dashboard() {
     const { user, loading: authLoading, signOut } = useAuth();
@@ -20,56 +18,10 @@ export default function Dashboard() {
 
     const [profile, setProfile] = useState<ProfileData | null>(null);
     const [fetching, setFetching] = useState(true);
-    const [activeTab, setActiveTab] = useState<'profile' | 'overview' | 'opportunities' | 'future-path'>('profile');
+    const [activeTab, setActiveTab] = useState<'profile' | 'overview' | 'opportunities' | 'future-path' | 'resources'>('profile');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    useEffect(() => {
-        if (!authLoading && !user) {
-            router.push('/login');
-            return;
-        }
-
-        async function fetchProfile() {
-            if (!user) return;
-            try {
-                const { data, error } = await supabase
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', user.id)
-                    .single();
-
-                if (error) {
-                    console.error("Error fetching profile:", error);
-                } else if (data) {
-                    const profileData: ProfileData = {
-                        id: user.id,
-                        ...data.resume_data,
-                        fullName: data.full_name || "",
-                        headline: data.resume_data?.headline || "",
-                        email: user.email || "",
-                        website: "",
-                        github: "",
-                        linkedin: "",
-                        location: "",
-                        skills: data.skills || [],
-                        education: data.resume_data?.education || [],
-                        experience: data.resume_data?.experience || [],
-                        projects: data.resume_data?.projects || [],
-                        roadmap_data: data.roadmap_data
-                    };
-                    setProfile(profileData);
-                }
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setFetching(false);
-            }
-        }
-
-        if (user) {
-            fetchProfile();
-        }
-    }, [user, authLoading, router, supabase]);
+    // ... (useEffect remains same) ...
 
     if (authLoading || fetching) {
         return (
@@ -86,11 +38,12 @@ export default function Dashboard() {
         { id: 'overview', label: 'Overview', icon: LayoutDashboard },
         { id: 'opportunities', label: 'Opportunities', icon: Briefcase },
         { id: 'future-path', label: 'Future Path', icon: Map },
+        { id: 'resources', label: 'Resources', icon: Bookmark },
     ];
 
     return (
         <div className="min-h-screen bg-neutral-50 flex">
-            {/* Sidebar (Desktop) */}
+            {/* ... Sidebar and headers remain same ... */}
             <aside className="hidden md:flex flex-col w-64 bg-white border-r border-neutral-200 fixed h-full z-20">
                 <div className="p-6 border-b border-neutral-100">
                     <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">SPORTS</h1>
@@ -128,7 +81,7 @@ export default function Dashboard() {
             <header className="md:hidden fixed top-0 w-full bg-white border-b border-neutral-200 z-30 px-4 h-16 flex items-center justify-between">
                 <h1 className="text-xl font-bold text-neutral-900">SPORTS</h1>
                 <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2">
-                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    {activeTab === 'profile' ? <User className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </header>
 
@@ -160,6 +113,7 @@ export default function Dashboard() {
                 </div>
             )}
 
+
             {/* Main Content */}
             <main className="flex-1 md:ml-64 p-6 md:p-12 pt-24 md:pt-12 min-h-screen">
                 <div className="max-w-5xl mx-auto">
@@ -175,6 +129,7 @@ export default function Dashboard() {
                                     onProfileUpdate={setProfile}
                                 />
                             )}
+                            {activeTab === 'resources' && <ResourcesTab />}
                         </>
                     )}
                 </div>

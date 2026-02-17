@@ -3,11 +3,10 @@ import { CheckCircle2, Circle } from 'lucide-react';
 import { useState } from 'react';
 
 export function SubtopicNode({ data }: { data: any }) {
-    const [completed, setCompleted] = useState(data.completed || false);
+    const completed = data.completed || false;
 
     const toggleComplete = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setCompleted(!completed);
         if (data.onComplete) {
             data.onComplete(data.id, !completed);
         }

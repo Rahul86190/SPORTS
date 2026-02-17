@@ -22,12 +22,26 @@ async def health_check():
 
 try:
     from .routers import roadmap
+    from .routers import chat
 except ImportError:
     from routers import roadmap
+    from routers import chat
+
 app.include_router(roadmap.router, prefix="/api/roadmap", tags=["Roadmap"])
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+
+try:
+    from .routers import resources
+    app.include_router(resources.router)
+except ImportError:
+    from routers import resources
+    app.include_router(resources.router)
 
 from fastapi import UploadFile, File, HTTPException
-from gemini_parser import parse_resume_to_json
+try:
+    from .gemini_parser import parse_resume_to_json
+except ImportError:
+    from gemini_parser import parse_resume_to_json
 import io
 import docx
 
@@ -56,8 +70,12 @@ async def parse_resume(file: UploadFile = File(...)):
     parsed_data = parse_resume_to_json(text)
     return parsed_data
 
-from scrapers.jobs import JobScraper
-from scrapers.hackathons import HackathonScraper
+try:
+    from .scrapers.jobs import JobScraper
+    from .scrapers.hackathons import HackathonScraper
+except ImportError:
+    from scrapers.jobs import JobScraper
+    from scrapers.hackathons import HackathonScraper
 
 @app.post("/api/scrape/jobs")
 async def trigger_job_scrape():

@@ -17,6 +17,7 @@ export const Navbar = () => {
                 <div className="flex items-center gap-6">
                     <nav className="hidden md:flex gap-6 items-center">
                         <Link href="/dashboard" className="text-sm font-medium text-neutral-500 hover:text-neutral-900">Dashboard</Link>
+                        <Link href="/resources" className="text-sm font-medium text-neutral-500 hover:text-neutral-900">Resources</Link>
                         <Link href="/opportunities" className="text-sm font-medium text-neutral-500 hover:text-neutral-900">Opportunities</Link>
                     </nav>
                     <Link

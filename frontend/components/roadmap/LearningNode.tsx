@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 // Custom Node for React Flow
 export function LearningNode({ data }: { data: any }) {
-    const [completed, setCompleted] = useState(data.completed || false);
+    // Use data.completed directly
+    const completed = data.completed || false;
+
     // Subtopics state - could be moved to parent to persist
     const [subtopicsHelper, setSubtopicsHelper] = useState(
         data.subtopics?.map((s: any) => ({ ...s, checked: false })) || []
@@ -18,7 +20,7 @@ export function LearningNode({ data }: { data: any }) {
 
     const handleCheck = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setCompleted(!completed);
+        // Optimistic update handled by parent via data refetch/update
         if (data.onComplete) {
             data.onComplete(data.id, !completed);
         }

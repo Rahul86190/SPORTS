@@ -1,8 +1,11 @@
-import { X, ExternalLink, CheckCircle2, Circle, Clock, Target, BookOpen } from 'lucide-react';
+import { X, ExternalLink, CheckCircle2, Circle, Clock, Target, BookOpen, Sparkles, BookmarkPlus, Check } from 'lucide-react';
+import { useAuth } from '@/components/AuthProvider';
+import { useState } from 'react';
 
 export interface Resource {
     title: string;
     url: string;
+    type?: string;
 }
 
 export interface NodeDetails {
@@ -21,9 +24,42 @@ interface NodeDetailsModalProps {
     onClose: () => void;
     node: NodeDetails | null;
     onComplete?: (id: string, status: boolean) => void;
+    onAskTutor?: (context: string) => void;
 }
 
-export function NodeDetailsModal({ isOpen, onClose, node, onComplete }: NodeDetailsModalProps) {
+export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor }: NodeDetailsModalProps) {
+    const { user } = useAuth();
+    const [savedUrls, setSavedUrls] = useState<Set<string>>(new Set());
+    const [savingUrl, setSavingUrl] = useState<string | null>(null);
+
+    const handleSaveResource = async (res: Resource) => {
+        if (!user || !node) return;
+        setSavingUrl(res.url);
+
+        try {
+            const response = await fetch('/api/resources', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    title: res.title,
+                    url: res.url,
+                    type: res.type || 'article', // Default if missing
+                    phase_id: node.id, // Link to node as phase_id for now
+                    tags: [node.title]
+                })
+            });
+
+            if (response.ok) {
+                setSavedUrls(prev => new Set(prev).add(res.url));
+            }
+        } catch (error) {
+            console.error("Failed to save resource", error);
+        } finally {
+            setSavingUrl(null);
+        }
+    };
+
     if (!isOpen || !node) return null;
 
     return (
@@ -40,6 +76,19 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete }: NodeDeta
                     </div>
                     <button onClick={onClose} className="text-neutral-400 hover:text-white transition-colors">
                         <X className="w-6 h-6" />
+                    </button>
+                </div>
+
+                {/* Tutor Context Bar */}
+                <div className="px-6 py-2 bg-blue-50 border-b border-blue-100 flex items-center justify-center sm:justify-between gap-2 flex-wrap">
+                    <span className="text-xs font-bold text-blue-700 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" /> AI Tutor Available
+                    </span>
+                    <button
+                        onClick={() => onAskTutor?.(node.title + ": " + node.description)}
+                        className="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline bg-white/50 px-2 py-1 rounded border border-blue-100 hover:bg-white transition-colors"
+                    >
+                        Ask about this topic
                     </button>
                 </div>
 
@@ -84,19 +133,35 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete }: NodeDeta
                                 <BookOpen className="w-4 h-4" /> Top Resources
                             </h3>
                             <ul className="space-y-2">
-                                {node.resources.map((res, idx) => (
-                                    <li key={idx}>
-                                        <a
-                                            href={res.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline transition-all p-2 rounded-lg hover:bg-neutral-50"
-                                        >
-                                            <ExternalLink className="w-4 h-4 flex-shrink-0" />
-                                            <span>{res.title}</span>
-                                        </a>
-                                    </li>
-                                ))}
+                                {node.resources.map((res, idx) => {
+                                    const isSaved = savedUrls.has(res.url);
+                                    const isSaving = savingUrl === res.url;
+
+                                    return (
+                                        <li key={idx} className="flex items-center gap-2 group">
+                                            <a
+                                                href={res.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline transition-all p-2 rounded-lg hover:bg-neutral-50"
+                                            >
+                                                <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                                                <span>{res.title}</span>
+                                            </a>
+                                            <button
+                                                onClick={() => handleSaveResource(res)}
+                                                disabled={isSaved || isSaving}
+                                                className={`p-2 rounded-md transition-all ${isSaved
+                                                        ? 'text-green-600 bg-green-50'
+                                                        : 'text-neutral-400 hover:text-blue-600 hover:bg-blue-50 opacity-0 group-hover:opacity-100'
+                                                    }`}
+                                                title={isSaved ? "Saved" : "Save to Resources"}
+                                            >
+                                                {isSaved ? <Check className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />}
+                                            </button>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}
@@ -104,7 +169,6 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete }: NodeDeta
 
                 {/* Footer / Action */}
                 <div className="p-6 border-t border-neutral-100 bg-neutral-50 flex justify-end">
-                    {/* Maybe a big completion button here? For now, close is fine. */}
                     <button
                         onClick={onClose}
                         className="px-5 py-2 bg-neutral-200 hover:bg-neutral-300 text-neutral-800 rounded-lg font-medium transition-colors"
