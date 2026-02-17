@@ -23,7 +23,56 @@ export default function Dashboard() {
     const [activeTab, setActiveTab] = useState<'profile' | 'overview' | 'opportunities' | 'future-path' | 'resources'>('profile');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    // ... (useEffect remains same) ...
+    useEffect(() => {
+        async function fetchProfile() {
+            if (!user) return;
+
+            try {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+                if (error) {
+                    console.error('Error fetching profile:', error);
+                    setFetching(false);
+                    return;
+                }
+
+                if (data) {
+                    console.log("Dashboard: Fetched supabase data:", data);
+                    const resume = data.resume_data || {};
+                    const newProfile: ProfileData = {
+                        id: data.id,
+                        fullName: data.full_name || resume.full_name || user.email || "User",
+                        headline: resume.headline || "Student",
+                        email: user.email || "",
+                        phone: resume.phone || "",
+                        website: data.website || resume.website || "",
+                        github: resume.github || "",
+                        linkedin: resume.linkedin || "",
+                        location: resume.location || "",
+                        avatarUrl: data.avatar_url || resume.avatarUrl,
+                        skills: resume.skills || [],
+                        education: resume.education || [],
+                        experience: resume.experience || [],
+                        projects: resume.projects || [],
+                        // MANUALLY MAP ROADMAP DATA
+                        roadmap_data: data.roadmap_data
+                    };
+                    console.log("Dashboard: Mapped newProfile:", newProfile);
+                    setProfile(newProfile);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                setFetching(false);
+            }
+        }
+
+        fetchProfile();
+    }, [user, supabase]);
 
     if (authLoading || fetching) {
         return (

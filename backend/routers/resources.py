@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
-from database import get_supabase
+from backend.database import get_supabase
 
 router = APIRouter(prefix="/api/resources", tags=["resources"])
 
@@ -21,24 +21,35 @@ class Resource(ResourceBase):
     id: str
     created_at: str
 
-@router.post("/", response_model=Resource)
-async def create_resource(resource: ResourceCreate):
+@router.post("/")
+async def toggle_resource(resource: ResourceCreate):
     supabase = get_supabase()
     if not supabase:
         raise HTTPException(status_code=500, detail="Database connection failed")
     
     try:
-        # Check for duplicates? URL unique per user?
-        # Let's just insert.
-        data = resource.dict()
-        response = supabase.table("resources").insert(data).execute()
+        # Check if resource already exists for this user and URL
+        print(f"DEBUG: Toggling resource for user {resource.user_id}, URL: {resource.url}")
+        existing = supabase.table("resources").select("*").eq("user_id", resource.user_id).eq("url", resource.url).execute()
+        print(f"DEBUG: Existing records found: {len(existing.data) if existing.data else 0}")
         
-        if not response.data:
-            raise HTTPException(status_code=400, detail="Failed to create resource")
+        if existing.data and len(existing.data) > 0:
+            # Resource exists -> Remove it (Toggle OFF)
+            resource_id = existing.data[0]['id']
+            supabase.table("resources").delete().eq("id", resource_id).execute()
+            return {"message": "Resource removed", "action": "removed", "url": resource.url}
+        else:
+            # Resource does not exist -> Create it (Toggle ON)
+            data = resource.dict()
+            response = supabase.table("resources").insert(data).execute()
             
-        return response.data[0]
+            if not response.data:
+                raise HTTPException(status_code=400, detail="Failed to create resource")
+                
+            return {"message": "Resource saved", "action": "added", "resource": response.data[0]}
+
     except Exception as e:
-        print(f"Error creating resource: {e}")
+        print(f"Error toggling resource: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/", response_model=List[Resource])

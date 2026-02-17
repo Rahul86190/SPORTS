@@ -131,6 +131,7 @@ function OnboardingContent() {
             .upsert({
                 id: user.id,
                 full_name: profile.fullName,
+                avatar_url: profile.avatarUrl,
                 skills: profile.skills,
                 resume_data: profile, // Save full structured object
                 onboarding_completed: true,

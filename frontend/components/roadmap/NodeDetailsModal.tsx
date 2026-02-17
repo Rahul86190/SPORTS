@@ -1,6 +1,6 @@
 import { X, ExternalLink, CheckCircle2, Circle, Clock, Target, BookOpen, Sparkles, BookmarkPlus, Check } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface Resource {
     title: string;
@@ -32,9 +32,44 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor
     const [savedUrls, setSavedUrls] = useState<Set<string>>(new Set());
     const [savingUrl, setSavingUrl] = useState<string | null>(null);
 
+    // Fetch saved resources on mount to initialize state
+    useEffect(() => {
+        if (!user) return;
+
+        const fetchSavedResources = async () => {
+            try {
+                const response = await fetch(`/api/resources?user_id=${user.id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const urls = new Set(data.map((r: any) => r.url));
+                    console.log("NodeDetailsModal: Initialized saved URLs", urls);
+                    setSavedUrls(urls);
+                }
+            } catch (error) {
+                console.error("Failed to fetch saved resources", error);
+            }
+        };
+
+        fetchSavedResources();
+    }, [user, isOpen]); // Re-fetch when modal opens
+
     const handleSaveResource = async (res: Resource) => {
         if (!user || !node) return;
-        setSavingUrl(res.url);
+
+        // Optimistic Update
+        const isCurrentlySaved = savedUrls.has(res.url);
+        setSavedUrls(prev => {
+            const next = new Set(prev);
+            if (isCurrentlySaved) {
+                next.delete(res.url);
+            } else {
+                next.add(res.url);
+            }
+            return next;
+        });
+
+        // We don't block UI with saving state anymore for toggle
+        // setSavingUrl(res.url); 
 
         try {
             const response = await fetch('/api/resources', {
@@ -44,19 +79,49 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor
                     user_id: user.id,
                     title: res.title,
                     url: res.url,
-                    type: res.type || 'article', // Default if missing
-                    phase_id: node.id, // Link to node as phase_id for now
+                    type: res.type || 'article',
+                    phase_id: node.id,
                     tags: [node.title]
                 })
             });
 
             if (response.ok) {
-                setSavedUrls(prev => new Set(prev).add(res.url));
+                const data = await response.json();
+                // Ensure state matches server reality
+                setSavedUrls(prev => {
+                    const next = new Set(prev);
+                    if (data.action === 'added') {
+                        next.add(res.url);
+                    } else if (data.action === 'removed') {
+                        next.delete(res.url);
+                    }
+                    return next;
+                });
+            } else {
+                // Revert on failure
+                console.error("Failed to toggle resource");
+                setSavedUrls(prev => {
+                    const next = new Set(prev);
+                    if (isCurrentlySaved) {
+                        next.add(res.url); // Re-add if we optimistically removed
+                    } else {
+                        next.delete(res.url); // Remove if we optimistically added
+                    }
+                    return next;
+                });
             }
         } catch (error) {
             console.error("Failed to save resource", error);
-        } finally {
-            setSavingUrl(null);
+            // Revert on error
+            setSavedUrls(prev => {
+                const next = new Set(prev);
+                if (isCurrentlySaved) {
+                    next.add(res.url);
+                } else {
+                    next.delete(res.url);
+                }
+                return next;
+            });
         }
     };
 
@@ -152,8 +217,8 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor
                                                 onClick={() => handleSaveResource(res)}
                                                 disabled={isSaved || isSaving}
                                                 className={`p-2 rounded-md transition-all ${isSaved
-                                                        ? 'text-green-600 bg-green-50'
-                                                        : 'text-neutral-400 hover:text-blue-600 hover:bg-blue-50 opacity-0 group-hover:opacity-100'
+                                                    ? 'text-green-600 bg-green-50'
+                                                    : 'text-neutral-400 hover:text-blue-600 hover:bg-blue-50 opacity-0 group-hover:opacity-100'
                                                     }`}
                                                 title={isSaved ? "Saved" : "Save to Resources"}
                                             >

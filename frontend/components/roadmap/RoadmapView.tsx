@@ -34,8 +34,8 @@ const edgeTypes = {
 };
 
 export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any, onProfileUpdate?: (profile: any) => void }) {
-    const [nodes, setNodes, onNodesChange] = useNodesState([]);
-    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+    const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
+    const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
     const [roadmap, setRoadmap] = useState<any>(null);
     const [currentPhaseIndex, setCurrentPhaseIndex] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -142,8 +142,8 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
             draggable: true,
         };
 
-        setNodes((nds) => {
-            const updatedNodes = [...nds, noteNode];
+        setNodes((nds: Node[]) => {
+            const updatedNodes = nds.concat(noteNode);
             // Side effect: Save
             const notesToSave = getNotesFromNodes(updatedNodes);
             saveNotes(notesToSave);
@@ -159,7 +159,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
     // Let's define them first.
 
     const updateNoteContent = useCallback((id: string, content: string) => {
-        setNodes((nds) => {
+        setNodes((nds: Node[]) => {
             const updatedNodes = nds.map((node) => {
                 if (node.id === id) {
                     return { ...node, data: { ...node.data, content } };
@@ -176,7 +176,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
     }, [getNotesFromNodes, saveNotes]);
 
     const updateNoteStyle = useCallback((id: string, style: any) => {
-        setNodes((nds) => {
+        setNodes((nds: Node[]) => {
             const updatedNodes = nds.map((node) => {
                 if (node.id === id) {
                     return {
@@ -193,7 +193,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
     }, [getNotesFromNodes, saveNotes]);
 
     const deleteNote = useCallback((id: string) => {
-        setNodes((nds) => {
+        setNodes((nds: Node[]) => {
             const updatedNodes = nds.filter((node) => node.id !== id);
             const notesToSave = getNotesFromNodes(updatedNodes);
             saveNotes(notesToSave);
@@ -214,7 +214,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
             // So `node` param has new position? Yes.
             // But we need ALL notes to save the array.
 
-            setNodes((nds) => {
+            setNodes((nds: Node[]) => {
                 // `nds` has the updated positions (handled by onNodesChange default behavior usually? 
                 // Wait, onNodesChange handles visual updates. 
                 // `onNodeDragStop` fires AFTER drag. 
@@ -228,7 +228,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
 
     const onNodeResizeStop = useCallback((event: any, node: any) => {
         if (node.type === 'noteNode') {
-            setNodes((nds) => {
+            setNodes((nds: Node[]) => {
                 // React Flow updates the style in the internal node state before this fires? 
                 // We need to ensure we grab the resized dimensions.
                 // Parameter `node` has the new dimensions.
@@ -313,8 +313,13 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
 
     // Initial Fetch or Generate
     useEffect(() => {
+        console.log("RoadmapView: profileData updated:", profileData);
         if (profileData?.roadmap_data) {
+            console.log("RoadmapView: Setting roadmap from profileData", profileData.roadmap_data);
             setRoadmap(profileData.roadmap_data);
+        } else {
+            console.log("RoadmapView: No roadmap_data in profileData");
+            setRoadmap(null);
         }
     }, [profileData]);
 
@@ -395,9 +400,6 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
                     id: `e-${node.id}-${nextNodeId}`,
                     source: node.id,
                     target: nextNodeId,
-                    type: 'default',
-                    source: node.id,
-                    target: nextNodeId,
                     type: 'particleEdge',
                     sourceHandle: 'bottom',
                     targetHandle: 'top',
@@ -424,7 +426,7 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
         // 2. If 'initially loading' (nodes is empty?), use `roadmap.notes`.
         // 3. Combine New Learning Nodes + Current Notes.
 
-        setNodes((currentNodes) => {
+        setNodes((currentNodes: Node[]) => {
             const currentNotes = currentNodes.filter(n => n.type === 'noteNode');
 
             // If we have no current notes (first load), check roadmap.

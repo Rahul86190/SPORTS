@@ -32,6 +32,7 @@ export interface ProfileData {
         description: string;
         link?: string;
     }>;
+    roadmap_data?: any;
 }
 
 interface ProfilePreviewProps {
