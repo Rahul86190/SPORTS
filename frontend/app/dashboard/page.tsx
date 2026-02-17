@@ -10,6 +10,8 @@ import { OpportunitiesTab } from "@/components/dashboard/tabs/OpportunitiesTab";
 import { FuturePathTab } from "@/components/dashboard/tabs/FuturePathTab";
 import { ResourcesTab } from "@/components/dashboard/tabs/ResourcesTab";
 import { Loader2, LogOut, LayoutDashboard, User, Briefcase, Map, Menu, X, Bookmark } from "lucide-react";
+import { createClient } from "@/lib/supabase";
+import { ProfileData } from "@/components/ProfilePreview";
 
 export default function Dashboard() {
     const { user, loading: authLoading, signOut } = useAuth();
