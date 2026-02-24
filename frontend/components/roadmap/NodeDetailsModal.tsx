@@ -42,7 +42,6 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor
                 if (response.ok) {
                     const data = await response.json();
                     const urls = new Set(data.map((r: any) => r.url));
-                    console.log("NodeDetailsModal: Initialized saved URLs", urls);
                     setSavedUrls(urls);
                 }
             } catch (error) {

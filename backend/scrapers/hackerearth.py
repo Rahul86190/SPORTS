@@ -78,13 +78,13 @@ class HackerEarthScraper(BaseScraper):
                     hackathon_data = {
                         "name": title,
                         "organizer": organizer,
-                        "description": "HackerEarth Challenge",
-                        "dates": "Upcoming", # Parse if possible
+                        "dates": "Upcoming",
                         "location": location,
                         "url": item_url,
                         "source": "HackerEarth",
                         "tags": ["Hackathon", tag.upper()],
-                        "prizes": "See Details"
+                        "prizes": "See Details",
+                        "created_at": datetime.now().isoformat()
                     }
                     
                     print(f"Found: {title} ({organizer})")

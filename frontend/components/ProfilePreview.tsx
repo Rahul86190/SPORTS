@@ -33,6 +33,14 @@ export interface ProfileData {
         link?: string;
     }>;
     roadmap_data?: any;
+    // Structured location fields
+    country: string;
+    state: string;
+    city: string;
+    // Career fields
+    careerGoal: string;
+    experienceLevel: string;
+    yearOfStudy: string;
 }
 
 interface ProfilePreviewProps {

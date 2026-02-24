@@ -29,9 +29,7 @@ async def toggle_resource(resource: ResourceCreate):
     
     try:
         # Check if resource already exists for this user and URL
-        print(f"DEBUG: Toggling resource for user {resource.user_id}, URL: {resource.url}")
         existing = supabase.table("resources").select("*").eq("user_id", resource.user_id).eq("url", resource.url).execute()
-        print(f"DEBUG: Existing records found: {len(existing.data) if existing.data else 0}")
         
         if existing.data and len(existing.data) > 0:
             # Resource exists -> Remove it (Toggle OFF)

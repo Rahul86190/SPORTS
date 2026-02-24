@@ -41,7 +41,6 @@ export default function Dashboard() {
                 }
 
                 if (data) {
-                    console.log("Dashboard: Fetched supabase data:", data);
                     const resume = data.resume_data || {};
                     const newProfile: ProfileData = {
                         id: data.id,
@@ -61,7 +60,6 @@ export default function Dashboard() {
                         // MANUALLY MAP ROADMAP DATA
                         roadmap_data: data.roadmap_data
                     };
-                    console.log("Dashboard: Mapped newProfile:", newProfile);
                     setProfile(newProfile);
                 }
             } catch (error) {

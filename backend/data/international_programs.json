@@ -1,0 +1,826 @@
+[
+    {
+        "name": "Google Summer of Code (GSoC)",
+        "country": "USA",
+        "organization": "Google",
+        "program_type": "internship",
+        "description": "Global program for post-secondary students to contribute to open source projects with mentorship from developer organizations.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "open source",
+            "computer science",
+            "web development",
+            "machine learning",
+            "data science"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://summerofcode.withgoogle.com/",
+        "deadline_month": 4,
+        "deadline_text": "April (annually)",
+        "duration": "12 weeks",
+        "stipend": "$1500-$6600 based on country",
+        "tags": [
+            "open source",
+            "coding",
+            "mentorship",
+            "remote"
+        ]
+    },
+    {
+        "name": "MITACS Globalink Research Internship",
+        "country": "Canada",
+        "organization": "MITACS",
+        "program_type": "research",
+        "description": "Competitive research internship at Canadian universities. Covers airfare, visa, insurance, and provides a stipend.",
+        "eligibility": {
+            "open_to": [
+                "IN",
+                "BR",
+                "CN",
+                "FR",
+                "DE",
+                "MX",
+                "TN",
+                "VN",
+                "UA"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "computer science",
+            "engineering",
+            "data science",
+            "machine learning",
+            "biotechnology",
+            "mathematics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.mitacs.ca/en/programs/globalink/globalink-research-internship",
+        "deadline_month": 9,
+        "deadline_text": "September (annually)",
+        "duration": "12 weeks (May-Sept)",
+        "stipend": "CAD $10,000 + airfare + insurance",
+        "tags": [
+            "research",
+            "canada",
+            "fully funded",
+            "international"
+        ]
+    },
+    {
+        "name": "DAAD WISE Scholarship",
+        "country": "Germany",
+        "organization": "DAAD",
+        "program_type": "research",
+        "description": "Working Internships in Science and Engineering (WISE) at top German universities and research institutions.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 3
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "physics",
+            "chemistry",
+            "biology",
+            "mathematics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.daad.in/en/find-funding/scholarship-database/?type=a&q=wise",
+        "deadline_month": 11,
+        "deadline_text": "November (annually)",
+        "duration": "8-12 weeks (May-Aug)",
+        "stipend": "€934/month + airfare + insurance",
+        "tags": [
+            "research",
+            "germany",
+            "fully funded",
+            "stem"
+        ]
+    },
+    {
+        "name": "MEXT Scholarship (Japan)",
+        "country": "Japan",
+        "organization": "Ministry of Education, Japan",
+        "program_type": "scholarship",
+        "description": "Full scholarship for international students to study at Japanese universities. Covers tuition, living expenses, and airfare.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "humanities",
+            "social sciences",
+            "natural sciences"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.studyinjapan.go.jp/en/smap-stopj-applications-research.html",
+        "deadline_month": 4,
+        "deadline_text": "April (annually)",
+        "duration": "2-5 years",
+        "stipend": "¥143,000-¥145,000/month + tuition + airfare",
+        "tags": [
+            "scholarship",
+            "japan",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "Outreachy Internships",
+        "country": "Remote",
+        "organization": "Outreachy",
+        "program_type": "internship",
+        "description": "Paid remote internships for underrepresented groups in tech, working with open source organizations.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "design",
+            "documentation",
+            "data science",
+            "open source"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.outreachy.org/",
+        "deadline_month": 2,
+        "deadline_text": "February & August (bi-annual)",
+        "duration": "3 months",
+        "stipend": "$7,000",
+        "tags": [
+            "open source",
+            "remote",
+            "diversity",
+            "paid"
+        ]
+    },
+    {
+        "name": "Google Summer of Docs",
+        "country": "USA",
+        "organization": "Google",
+        "program_type": "internship",
+        "description": "Program for technical writers to contribute to open source documentation with mentorship.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "technical writing",
+            "documentation",
+            "open source"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://developers.google.com/season-of-docs",
+        "deadline_month": 3,
+        "deadline_text": "March (annually)",
+        "duration": "6 months",
+        "stipend": "$5,000-$15,000",
+        "tags": [
+            "documentation",
+            "remote",
+            "open source"
+        ]
+    },
+    {
+        "name": "LFX Mentorship (Linux Foundation)",
+        "country": "Remote",
+        "organization": "Linux Foundation",
+        "program_type": "internship",
+        "description": "Mentorship program by Linux Foundation to contribute to CNCF, Linux Kernel, and other open source projects.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "cloud computing",
+            "devops",
+            "linux",
+            "kubernetes"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://mentorship.lfx.linuxfoundation.org/",
+        "deadline_month": 1,
+        "deadline_text": "Multiple terms throughout the year",
+        "duration": "12 weeks",
+        "stipend": "$3,000-$6,600",
+        "tags": [
+            "linux",
+            "cloud",
+            "devops",
+            "remote",
+            "open source"
+        ]
+    },
+    {
+        "name": "Erasmus+ Programme",
+        "country": "Europe",
+        "organization": "European Commission",
+        "program_type": "exchange",
+        "description": "EU-funded exchange program for students to study abroad at European universities. Covers travel and living costs.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "business",
+            "arts",
+            "sciences"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": false,
+        "application_url": "https://erasmus-plus.ec.europa.eu/",
+        "deadline_month": 2,
+        "deadline_text": "Varies by university",
+        "duration": "3-12 months",
+        "stipend": "€800-€1100/month",
+        "tags": [
+            "exchange",
+            "europe",
+            "funded"
+        ]
+    },
+    {
+        "name": "Charpak Lab Scholarship",
+        "country": "France",
+        "organization": "French Embassy in India",
+        "program_type": "research",
+        "description": "Research internship at French laboratories for Indian students. Covers living expenses and visa.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "engineering",
+            "science",
+            "technology",
+            "mathematics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.inde.campusfrance.org/charpak-lab-scholarship",
+        "deadline_month": 1,
+        "deadline_text": "January (annually)",
+        "duration": "2-3 months",
+        "stipend": "€860/month",
+        "tags": [
+            "research",
+            "france",
+            "fully funded",
+            "indian students"
+        ]
+    },
+    {
+        "name": "SN Bose Scholars Program",
+        "country": "USA",
+        "organization": "Indo-US Science & Technology Forum",
+        "program_type": "research",
+        "description": "Research internship at American universities for Indian students in STEM fields.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 3
+        },
+        "fields": [
+            "physics",
+            "chemistry",
+            "biology",
+            "mathematics",
+            "computer science",
+            "engineering"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://scsp.us/",
+        "deadline_month": 10,
+        "deadline_text": "October (annually)",
+        "duration": "8-12 weeks (May-Aug)",
+        "stipend": "Housing + stipend + insurance + airfare",
+        "tags": [
+            "research",
+            "usa",
+            "fully funded",
+            "stem"
+        ]
+    },
+    {
+        "name": "Viterbi-India Program (IUSSTF)",
+        "country": "USA",
+        "organization": "Indo-US Science & Technology Forum",
+        "program_type": "research",
+        "description": "Summer research program at USC Viterbi School of Engineering for Indian students.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 3
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "data science"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.iusstf.org/program/viterbi-india-program",
+        "deadline_month": 11,
+        "deadline_text": "November (annually)",
+        "duration": "8 weeks (May-Jul)",
+        "stipend": "$6,000 + airfare + accommodation",
+        "tags": [
+            "research",
+            "usa",
+            "engineering",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "CERN Openlab Summer Internship",
+        "country": "Switzerland",
+        "organization": "CERN",
+        "program_type": "internship",
+        "description": "Summer program at CERN in Geneva working on cutting-edge computing challenges in particle physics.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 3
+        },
+        "fields": [
+            "computer science",
+            "physics",
+            "data science",
+            "machine learning",
+            "engineering"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://openlab.cern/education",
+        "deadline_month": 1,
+        "deadline_text": "January (annually)",
+        "duration": "8-13 weeks (June-Sept)",
+        "stipend": "CHF 3,494/month",
+        "tags": [
+            "research",
+            "switzerland",
+            "physics",
+            "computing",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "MLH Fellowship",
+        "country": "Remote",
+        "organization": "Major League Hacking",
+        "program_type": "internship",
+        "description": "12-week remote internship-alternative program for aspiring developers. Work on open source and portfolio projects.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "open source",
+            "web development"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://fellowship.mlh.io/",
+        "deadline_month": 1,
+        "deadline_text": "Multiple cohorts year-round",
+        "duration": "12 weeks",
+        "stipend": "$5,000",
+        "tags": [
+            "coding",
+            "remote",
+            "fellowship",
+            "open source"
+        ]
+    },
+    {
+        "name": "Khorana Program (IUSSTF)",
+        "country": "USA",
+        "organization": "Indo-US Science & Technology Forum",
+        "program_type": "research",
+        "description": "Summer research fellowship for Indian students to work with US faculty on STEM research.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "biology",
+            "chemistry",
+            "physics",
+            "engineering",
+            "agriculture",
+            "health sciences"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.iusstf.org/program/khorana-program-for-scholars",
+        "deadline_month": 11,
+        "deadline_text": "November (annually)",
+        "duration": "10 weeks (May-Jul)",
+        "stipend": "Stipend + airfare + accommodation",
+        "tags": [
+            "research",
+            "usa",
+            "biology",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "NTU India Connect (Singapore)",
+        "country": "Singapore",
+        "organization": "Nanyang Technological University",
+        "program_type": "research",
+        "description": "Research internship at NTU Singapore for Indian engineering students.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "data science",
+            "materials science"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.ntu.edu.sg/education/student-exchanges/india-connect@ntu",
+        "deadline_month": 10,
+        "deadline_text": "October-November",
+        "duration": "10 weeks (May-Jul)",
+        "stipend": "SGD 1,500/month + accommodation",
+        "tags": [
+            "research",
+            "singapore",
+            "engineering",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "SHE Innovates (Microsoft)",
+        "country": "India",
+        "organization": "Microsoft",
+        "program_type": "hackathon",
+        "description": "Hackathon by Microsoft India for women in tech. Prizes, mentorship, and internship opportunities.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "ai",
+            "cloud computing",
+            "design"
+        ],
+        "is_fully_funded": false,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.microsoft.com/en-in/campaign/she-innovates/",
+        "deadline_month": 3,
+        "deadline_text": "March (annually)",
+        "duration": "2-4 weeks",
+        "stipend": "Prizes + internship opportunities",
+        "tags": [
+            "hackathon",
+            "women in tech",
+            "microsoft",
+            "india"
+        ]
+    },
+    {
+        "name": "Smart India Hackathon (SIH)",
+        "country": "India",
+        "organization": "Ministry of Education, India",
+        "program_type": "hackathon",
+        "description": "India's largest hackathon where students solve industry and government problems. Open to all Indian college students.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "hardware",
+            "ai",
+            "iot",
+            "blockchain"
+        ],
+        "is_fully_funded": false,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.sih.gov.in/",
+        "deadline_month": 6,
+        "deadline_text": "June-August (annually)",
+        "duration": "36 hours",
+        "stipend": "Cash prizes up to ₹1,00,000",
+        "tags": [
+            "hackathon",
+            "india",
+            "government",
+            "innovation"
+        ]
+    },
+    {
+        "name": "FOSSASIA Internship",
+        "country": "Singapore",
+        "organization": "FOSSASIA",
+        "program_type": "internship",
+        "description": "Open source internship in Singapore/remote. Work on FOSSASIA projects in web, mobile, and AI.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "open source",
+            "web development",
+            "mobile development"
+        ],
+        "is_fully_funded": false,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://fossasia.org/",
+        "deadline_month": 1,
+        "deadline_text": "Rolling applications",
+        "duration": "2-6 months",
+        "stipend": "Varies",
+        "tags": [
+            "open source",
+            "asia",
+            "web development"
+        ]
+    },
+    {
+        "name": "GirlScript Summer of Code (GSSoC)",
+        "country": "India",
+        "organization": "GirlScript Foundation",
+        "program_type": "internship",
+        "description": "Open source contribution program for beginners. Work on real projects with mentors.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 1
+        },
+        "fields": [
+            "software development",
+            "open source",
+            "web development",
+            "machine learning"
+        ],
+        "is_fully_funded": false,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://gssoc.girlscript.tech/",
+        "deadline_month": 1,
+        "deadline_text": "January-February (annually)",
+        "duration": "3 months",
+        "stipend": "Swag + certificates + recognition",
+        "tags": [
+            "open source",
+            "india",
+            "beginner friendly"
+        ]
+    },
+    {
+        "name": "EPFL Summer Research Fellowship",
+        "country": "Switzerland",
+        "organization": "EPFL",
+        "program_type": "research",
+        "description": "Research fellowship at EPFL, one of the top technical universities in the world.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "computer science",
+            "engineering",
+            "mathematics",
+            "physics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://summer.epfl.ch/",
+        "deadline_month": 12,
+        "deadline_text": "December 1 (annually)",
+        "duration": "8-12 weeks (June-Aug)",
+        "stipend": "CHF 1,600/month + travel grant",
+        "tags": [
+            "research",
+            "switzerland",
+            "fully funded",
+            "engineering"
+        ]
+    },
+    {
+        "name": "ETH Zurich Student Summer Research Fellowship",
+        "country": "Switzerland",
+        "organization": "ETH Zurich",
+        "program_type": "research",
+        "description": "Summer research opportunity at ETH Zurich, one of the world's leading science and technology universities.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "computer science",
+            "engineering",
+            "physics",
+            "mathematics",
+            "chemistry"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://inf.ethz.ch/studies/summer-research-fellowship.html",
+        "deadline_month": 12,
+        "deadline_text": "December 15 (annually)",
+        "duration": "8 weeks (June-Aug)",
+        "stipend": "CHF 1,850/month + travel",
+        "tags": [
+            "research",
+            "switzerland",
+            "fully funded",
+            "top university"
+        ]
+    },
+    {
+        "name": "Caltech SURF (Summer Undergraduate Research Fellowship)",
+        "country": "USA",
+        "organization": "Caltech",
+        "program_type": "research",
+        "description": "10-week research program at Caltech. Open to international students in STEM.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "computer science",
+            "engineering",
+            "physics",
+            "biology",
+            "chemistry",
+            "mathematics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://sfp.caltech.edu/undergraduate-research/programs/surf",
+        "deadline_month": 2,
+        "deadline_text": "February 22 (annually)",
+        "duration": "10 weeks (June-Aug)",
+        "stipend": "$7,080",
+        "tags": [
+            "research",
+            "usa",
+            "caltech",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "OIST Research Internship (Japan)",
+        "country": "Japan",
+        "organization": "Okinawa Institute of Science and Technology",
+        "program_type": "research",
+        "description": "Fully funded research internship at OIST Japan. Open to all nationalities.",
+        "eligibility": {
+            "open_to": [
+                "ALL"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "computer science",
+            "neuroscience",
+            "physics",
+            "chemistry",
+            "marine science"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://admissions.oist.jp/oist-research-internship-program-description",
+        "deadline_month": 11,
+        "deadline_text": "November (for summer)",
+        "duration": "2-6 months",
+        "stipend": "¥2,400/day + housing + airfare",
+        "tags": [
+            "research",
+            "japan",
+            "fully funded",
+            "science"
+        ]
+    },
+    {
+        "name": "SURGE (IIT Kanpur)",
+        "country": "India",
+        "organization": "IIT Kanpur",
+        "program_type": "research",
+        "description": "Summer Undergraduate Research Grant Exposure at IIT Kanpur. Open to all Indian undergraduate students.",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "engineering",
+            "computer science",
+            "science",
+            "mathematics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://surge.iitk.ac.in/",
+        "deadline_month": 3,
+        "deadline_text": "March (annually)",
+        "duration": "8 weeks (May-Jul)",
+        "stipend": "₹5,000/month + accommodation",
+        "tags": [
+            "research",
+            "india",
+            "iit",
+            "fully funded"
+        ]
+    },
+    {
+        "name": "IAS Summer Research Fellowship (India)",
+        "country": "India",
+        "organization": "Indian Academy of Sciences",
+        "program_type": "research",
+        "description": "Summer research fellowship at premier Indian institutions (IISc, IITs, NITs, etc.).",
+        "eligibility": {
+            "open_to": [
+                "IN"
+            ],
+            "min_year": 2
+        },
+        "fields": [
+            "science",
+            "engineering",
+            "mathematics",
+            "biology",
+            "chemistry",
+            "physics"
+        ],
+        "is_fully_funded": true,
+        "is_open_to_all_colleges": true,
+        "application_url": "https://www.ias.ac.in/page/Summer%20Research%20Fellowship%20Programme",
+        "deadline_month": 11,
+        "deadline_text": "November 30 (annually)",
+        "duration": "8 weeks (May-Jul)",
+        "stipend": "₹5,000/month + travel",
+        "tags": [
+            "research",
+            "india",
+            "fully funded",
+            "science"
+        ]
+    }
+]

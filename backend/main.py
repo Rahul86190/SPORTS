@@ -37,6 +37,13 @@ except ImportError:
     from routers import resources
     app.include_router(resources.router)
 
+try:
+    from .routers import opportunities
+    app.include_router(opportunities.router)
+except ImportError:
+    from routers import opportunities
+    app.include_router(opportunities.router)
+
 from fastapi import UploadFile, File, HTTPException
 try:
     from .gemini_parser import parse_resume_to_json

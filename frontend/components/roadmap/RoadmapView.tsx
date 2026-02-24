@@ -313,12 +313,9 @@ export function RoadmapView({ profileData, onProfileUpdate }: { profileData: any
 
     // Initial Fetch or Generate
     useEffect(() => {
-        console.log("RoadmapView: profileData updated:", profileData);
         if (profileData?.roadmap_data) {
-            console.log("RoadmapView: Setting roadmap from profileData", profileData.roadmap_data);
             setRoadmap(profileData.roadmap_data);
         } else {
-            console.log("RoadmapView: No roadmap_data in profileData");
             setRoadmap(null);
         }
     }, [profileData]);

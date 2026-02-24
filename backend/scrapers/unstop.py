@@ -69,13 +69,13 @@ class UnstopScraper(BaseScraper):
                     hackathon_data = {
                         "name": title,
                         "organizer": organizer,
-                        "description": item.get('seo_description', 'Hackathon on Unstop'),
                         "dates": dates,
                         "location": location,
                         "url": item_url,
                         "source": "Unstop",
-                        "tags": tags[:5], # Limit tags
-                        "prizes": "See Details"
+                        "tags": tags[:5],
+                        "prizes": "See Details",
+                        "created_at": datetime.now().isoformat()
                     }
                     
                     print(f"Found: {title} by {organizer}")

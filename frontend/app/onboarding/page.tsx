@@ -43,7 +43,13 @@ function OnboardingContent() {
         education: [],
         experience: [],
         projects: [],
-        avatarUrl: ""
+        avatarUrl: "",
+        country: "",
+        state: "",
+        city: "",
+        careerGoal: "",
+        experienceLevel: "student",
+        yearOfStudy: "",
     });
 
     // Load user profile data on mount
@@ -136,6 +142,13 @@ function OnboardingContent() {
                 resume_data: profile, // Save full structured object
                 onboarding_completed: true,
                 updated_at: new Date().toISOString(),
+                // New structured fields
+                country: profile.country,
+                state: profile.state,
+                city: profile.city,
+                career_goal: profile.careerGoal,
+                experience_level: profile.experienceLevel,
+                year_of_study: profile.yearOfStudy,
             });
 
         if (error) {
@@ -276,6 +289,75 @@ function OnboardingContent() {
                                 <div>
                                     <label className="block text-sm font-medium text-neutral-700 mb-1">LinkedIn</label>
                                     <input value={profile.linkedin} onChange={(e) => updateField('linkedin', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none" placeholder="linkedin.com/in/..." />
+                                </div>
+                            </div>
+
+                            {/* New: Location Details */}
+                            <div className="pt-2 border-t border-neutral-100">
+                                <label className="block text-sm font-semibold text-neutral-800 mb-3">📍 Location Details</label>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div>
+                                        <label className="block text-xs font-medium text-neutral-500 mb-1">Country</label>
+                                        <select value={profile.country} onChange={(e) => updateField('country', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm">
+                                            <option value="">Select</option>
+                                            <option value="IN">🇮🇳 India</option>
+                                            <option value="US">🇺🇸 USA</option>
+                                            <option value="GB">🇬🇧 UK</option>
+                                            <option value="CA">🇨🇦 Canada</option>
+                                            <option value="DE">🇩🇪 Germany</option>
+                                            <option value="AU">🇦🇺 Australia</option>
+                                            <option value="FR">🇫🇷 France</option>
+                                            <option value="JP">🇯🇵 Japan</option>
+                                            <option value="SG">🇸🇬 Singapore</option>
+                                            <option value="NL">🇳🇱 Netherlands</option>
+                                            <option value="BR">🇧🇷 Brazil</option>
+                                            <option value="AE">🇦🇪 UAE</option>
+                                            <option value="NZ">🇳🇿 New Zealand</option>
+                                            <option value="IE">🇮🇪 Ireland</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-neutral-500 mb-1">State</label>
+                                        <input value={profile.state} onChange={(e) => updateField('state', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm" placeholder="Rajasthan" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-neutral-500 mb-1">City</label>
+                                        <input value={profile.city} onChange={(e) => updateField('city', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm" placeholder="Jaipur" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* New: Career Details */}
+                            <div className="pt-2 border-t border-neutral-100">
+                                <label className="block text-sm font-semibold text-neutral-800 mb-3">🎯 Career Details</label>
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="block text-xs font-medium text-neutral-500 mb-1">Career Goal</label>
+                                        <input value={profile.careerGoal} onChange={(e) => updateField('careerGoal', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm" placeholder="e.g. Data Scientist, Frontend Developer, ML Engineer" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label className="block text-xs font-medium text-neutral-500 mb-1">Experience Level</label>
+                                            <select value={profile.experienceLevel} onChange={(e) => updateField('experienceLevel', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm">
+                                                <option value="student">Student</option>
+                                                <option value="fresher">Fresher / Graduate</option>
+                                                <option value="entry-level">Entry Level (0-2 yrs)</option>
+                                                <option value="mid-level">Mid Level (2-5 yrs)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-neutral-500 mb-1">Year of Study</label>
+                                            <select value={profile.yearOfStudy} onChange={(e) => updateField('yearOfStudy', e.target.value)} className="w-full p-3 bg-white border border-neutral-200 rounded-xl focus:ring-2 focus:ring-neutral-900 outline-none text-sm">
+                                                <option value="">Select</option>
+                                                <option value="1st Year">1st Year</option>
+                                                <option value="2nd Year">2nd Year</option>
+                                                <option value="3rd Year">3rd Year</option>
+                                                <option value="4th Year">4th Year</option>
+                                                <option value="5th Year">5th Year</option>
+                                                <option value="Graduated">Graduated</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
