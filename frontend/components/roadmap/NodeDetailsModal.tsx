@@ -41,7 +41,7 @@ export function NodeDetailsModal({ isOpen, onClose, node, onComplete, onAskTutor
                 const response = await fetch(`/api/resources?user_id=${user.id}`);
                 if (response.ok) {
                     const data = await response.json();
-                    const urls = new Set(data.map((r: any) => r.url));
+                    const urls: Set<string> = new Set(data.map((r: any) => String(r.url)));
                     setSavedUrls(urls);
                 }
             } catch (error) {

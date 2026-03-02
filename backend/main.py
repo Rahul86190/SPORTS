@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Ensure the backend directory itself is always in the python path for absolute imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -43,6 +49,27 @@ try:
 except ImportError:
     from routers import opportunities
     app.include_router(opportunities.router)
+
+try:
+    from .routers import job_detail
+    app.include_router(job_detail.router)
+except ImportError:
+    from routers import job_detail
+    app.include_router(job_detail.router)
+
+try:
+    from .routers import prep
+    app.include_router(prep.router)
+except ImportError:
+    from routers import prep
+    app.include_router(prep.router)
+
+try:
+    from .routers import resume
+    app.include_router(resume.router, prefix="/api")
+except ImportError:
+    from routers import resume
+    app.include_router(resume.router, prefix="/api")
 
 from fastapi import UploadFile, File, HTTPException
 try:

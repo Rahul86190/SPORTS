@@ -1,0 +1,3 @@
+﻿components/ResumeBuilder.tsx(345,94): error TS18047: 'jobDetail' is possibly 'null'.
+components/ResumeBuilder.tsx(345,122): error TS18047: 'jobDetail' is possibly 'null'.
+components/ResumeBuilder.tsx(449,98): error TS18047: 'jobDetail' is possibly 'null'.

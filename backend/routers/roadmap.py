@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
-from backend.database import get_supabase
-from backend.utils.gemini_client import GeminiClient
+from database import get_supabase
+from utils.gemini_client import GeminiClient
 
 router = APIRouter()
 

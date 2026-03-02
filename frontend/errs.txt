@@ -1,0 +1,9 @@
+﻿components/ResumeBuilder.tsx(180,33): error TS2353: Object literal may only specify known properties, and 'tabStops' does not exist in type 'IParagraphStylePropertiesOptions'.
+components/ResumeBuilder.tsx(194,25): error TS2322: Type 'Paragraph | null' is not assignable to type 'FileChild'.
+  Type 'null' is not assignable to type 'FileChild'.
+components/ResumeBuilder.tsx(199,25): error TS2322: Type 'Paragraph | null' is not assignable to type 'FileChild'.
+  Type 'null' is not assignable to type 'FileChild'.
+components/ResumeBuilder.tsx(217,25): error TS2322: Type 'Paragraph | null' is not assignable to type 'FileChild'.
+  Type 'null' is not assignable to type 'FileChild'.
+components/ResumeBuilder.tsx(234,25): error TS2322: Type 'Paragraph | null' is not assignable to type 'FileChild'.
+  Type 'null' is not assignable to type 'FileChild'.
